@@ -33,12 +33,6 @@ public class EmployeeService {
 
         int result = 0;
 
-//        Class.forName("org.postgresql.Driver");
-//
-//        try (Connection connection = DriverManager
-//                .getConnection("jdbc:postgresql://localhost:5432/employees", "postgres", "32167");
-
-             // Step 2:Create a statement using connection object
         try {
             PreparedStatement preparedStatement = myConn.prepareStatement(INSERT_USERS_SQL);
                 preparedStatement.setString(1, employee.getName());
@@ -53,6 +47,27 @@ public class EmployeeService {
             printSQLException(e);
         }
         return result;
+    }
+
+
+    public void deleteById(String id) {
+        String DELETE_USERS_SQL = "DELETE FROM employee WHERE id=?";
+        long i = Long.parseLong(id);
+
+        try {
+            PreparedStatement preparedStatement = myConn.prepareStatement(DELETE_USERS_SQL);
+            preparedStatement.setLong(1,i);
+
+            int in = preparedStatement.executeUpdate();
+
+            if(i > 0) {
+                System.out.println("User successfully removed...");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 
 

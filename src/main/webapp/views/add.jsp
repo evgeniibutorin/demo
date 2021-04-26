@@ -47,7 +47,7 @@
     <button onclick="location.href='/add'">Update information </button>
 </div>
 
-<form method="post">
+<form method="get">
 <%--<div class="row">--%>
 <%--    <div class="card-panel">--%>
         <table>
@@ -60,12 +60,12 @@
             </thead>
             <c:forEach var="employee" items="${employees}">
                 <tr>
-                    <td name ="id"><c:out value="${employee.id}"/></td>
+                    <td><c:out value="${employee.id}"/></td>
                     <td><c:out value="${employee.name}"/></td>
                     <td><c:out value="${employee.position}"/></td>
                     <td>
-                        <a href=""><i class="material-icons" name="delete_button">delete</i></a>
-
+                        <a href="/add?status=delete&id=${employee.id}"><i class="material-icons">delete</i></a>
+<%--                        name="delete_button" value="delete" onclick="location.href='/add'"--%>
                     </td>
                 </tr>
             </c:forEach>

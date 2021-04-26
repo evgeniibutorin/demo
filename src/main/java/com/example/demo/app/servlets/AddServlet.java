@@ -37,17 +37,26 @@ public class AddServlet extends HttpServlet {
         }
         ArrayList<Employee> employees = employeeService.getEmployees();
         request.setAttribute("employees", employees);
-        response.sendRedirect("views/add.jsp");
+        request.getRequestDispatcher("views/add.jsp").forward(request, response);
 
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
+        String status = req.getParameter("status");
+        String id = req.getParameter("id");
+        System.out.println(status);
+        System.out.println(id);
+        if ("delete".equals(status)) {
+            employeeService.deleteById(id);
+        }
         ArrayList<Employee> employees = employeeService.getEmployees();
         req.setAttribute("employees", employees);
         req.getRequestDispatcher("views/add.jsp").forward(req, resp);
-    }
 
+    }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
